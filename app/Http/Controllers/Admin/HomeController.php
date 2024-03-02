@@ -23,13 +23,6 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $admin = auth()->user();
-        if($admin->hasRole('Administrador')){
-            return view('admin.home');
-        } elseif($admin->hasRole('Orientador')){
-            return redirect()->route('orientadorgeral.index');
-        } else{
-            return abort(403, 'Você não está autenticado ao sistema.');
-        }
+        return view('admin.home');
     }
 }
