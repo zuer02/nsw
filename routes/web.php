@@ -44,3 +44,7 @@ Route::prefix('admin')->name('admin.')->group(function () {
         Route::get('/home', [AdminHomeController::class, 'index'])->name('home');
     });
 });
+
+Route::middleware(['auth:admin'])->group(function () {
+    Route::resource('categoria', App\Http\Controllers\CategoriaController::class)->parameters(['categoria' => 'categoria'])->names('categoria'); // tive que colocar isto porque de alguma forma o parâmetro estava com nome diferente, 'categorium' ??
+});
