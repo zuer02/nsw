@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Categoria;
 use App\Models\Produto;
 use Illuminate\Http\Request;
+use App\Http\Requests\ProdutoRequest;
 
 class ProdutoController extends Controller
 {
@@ -12,7 +14,9 @@ class ProdutoController extends Controller
      */
     public function index()
     {
-        //
+        $produtos = Produto::all();
+
+        return view('produto.index', ['produtos' => $produtos]);
     }
 
     /**
@@ -20,15 +24,24 @@ class ProdutoController extends Controller
      */
     public function create()
     {
-        //
+        $categorias = Categoria::all();
+
+        return view('produto.create', ['categorias' => $categorias]);
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(ProdutoRequest $request)
     {
-        //
+        $produto = Produto::create($request->validated());
+        $nomeOriginal = $request->file('foto')->getClientOriginalName();
+        $produto['foto'] = $request->file('foto')->move('photos', $nomeOriginal);
+        // dd($categoria);
+        $produto->save();
+
+
+        return redirect()->route('produto.index');
     }
 
     /**
@@ -36,7 +49,7 @@ class ProdutoController extends Controller
      */
     public function show(Produto $produto)
     {
-        //
+        return view('produto.show', ['produto' => $produto]);
     }
 
     /**
@@ -44,15 +57,22 @@ class ProdutoController extends Controller
      */
     public function edit(Produto $produto)
     {
-        //
+        $categorias = Categoria::all();
+        return view('produto.edit', ['produto' => $produto, 'categorias' => $categorias]);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Produto $produto)
+    public function update(ProdutoRequest $request, Produto $produto)
     {
-        //
+        $produto->update($request->validated());
+        $nomeOriginal = $request->file('foto')->getClientOriginalName();
+        $produto['foto'] = $request->file('foto')->move('photos', $nomeOriginal);
+        // dd($categoria);
+        $produto->save();
+
+        return redirect()->route('produto.index');
     }
 
     /**
@@ -60,6 +80,8 @@ class ProdutoController extends Controller
      */
     public function destroy(Produto $produto)
     {
-        //
+        $produto->delete();
+
+        return redirect()->route('produto.index');
     }
 }
