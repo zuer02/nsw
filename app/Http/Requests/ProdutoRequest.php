@@ -39,15 +39,15 @@ class ProdutoRequest extends FormRequest
     public function messages(): array
     {
         return [
-            'icone.required' => 'O campo ícone é obrigatório.',
+            'required' => 'O campo :attribute deve ser preenchido.',
             'foto.image' => 'O arquivo deve ser uma imagem.',
             'foto.mimes' => 'A foto deve estar no formato JPG, PNG ou JPEG.',
             'foto.max' => 'A foto não pode ter mais de 2MB.',
             'nome.max' => 'O nome não pode ter mais de :max caracteres.',
             'nome.min' => 'O nome deve ter pelo menos :min caracteres.',
-            'valor.required' => 'O valor é obrigatório.',
             'valor.numeric' => 'O valor deve ser um número.',
             'quantidade.numeric' => 'A quantidade deve ser um número.',
         ];
     }
+    
 }

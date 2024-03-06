@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('vendas', function (Blueprint $table) {
             $table->id();
             $table->decimal('valor_total', 8, 2);
-            $table->tinyInteger('quantidade_total')->default(0);
+            $table->tinyInteger('quantidade_total')->default(0)->nullable();
             $table->timestamps();
         });
 

@@ -48,4 +48,5 @@ Route::prefix('admin')->name('admin.')->group(function () {
 Route::middleware(['auth:admin'])->group(function () {
     Route::resource('categoria', App\Http\Controllers\CategoriaController::class)->parameters(['categoria' => 'categoria'])->names('categoria'); // tive que colocar isto porque de alguma forma o parâmetro estava com nome diferente, 'categorium' ??
     Route::resource('produto', App\Http\Controllers\ProdutoController::class);
+    Route::resource('venda', App\Http\Controllers\VendaController::class);
 });

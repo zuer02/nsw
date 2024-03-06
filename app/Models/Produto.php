@@ -14,5 +14,8 @@ class Produto extends Model
     public function Categoria(){
         return $this->belongsTo('App\Models\Categoria');
     }
+    public function vendas(){
+        return $this->belongsToMany('App\Models\Venda', 'produto_venda');
+    }
 }
 

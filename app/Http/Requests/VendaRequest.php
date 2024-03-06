@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class CategoriaRequest extends FormRequest
+class VendaRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -25,12 +25,12 @@ class CategoriaRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'icone' => 'required|image|mimes:svg,png,ico|max:512',
-            'nome' => 'required|max:30|min:5',
-            'descricao' => 'required|max:255'
+            'produto_id' => 'required',
+            'quantidade_produto' => 'required|min:0',
+            'valor_total' => 'nullable|numeric|min:0',
+            'quantidade_total' => 'nullable|numeric',
         ];
     }
-
     /**
      * Get the messages array.
      *
@@ -39,12 +39,13 @@ class CategoriaRequest extends FormRequest
     {
         return [
             'required' => 'O campo :attribute deve ser preenchido.',
-            'icone.image' => 'O arquivo do ícone deve ser uma imagem.',
-            'icone.mimes' => 'O ícone deve ser um arquivo do tipo: svg, png, ico',
-            'icone.max' => 'O tamanho máximo do ícone é de 2MB.',
-            'nome.max' => 'O campo nome não pode ter mais de :max caracteres.',
-            'nome.min' => 'O campo nome deve ter pelo menos :min caracteres.',
-            'descricao.max' => 'O campo descrição não pode ter mais de :max caracteres.'
+            'numeric' => 'O campo :attribute deve ser do tipo número.',
+            'quantidade_produto.min' => 'A quantidade do produto deve ser pelo menos :min.',
+            'valor_total.min' => 'O valor total da compra deve ser no mínimo :min.',
         ];
+    }
+    public function failedValidation(\Illuminate\Contracts\Validation\Validator $validator)
+    {
+        dd($validator->errors());
     }
 }

@@ -12,4 +12,8 @@ class ProdutoVenda extends Model
     protected $table = 'produto_venda';
 
     protected $fillable = ['produto_id', 'venda_id', 'quantidade'];
+
+    public function Produto(){
+        return $this->belongsTo('App\Models\Produto');
+    }
 }
